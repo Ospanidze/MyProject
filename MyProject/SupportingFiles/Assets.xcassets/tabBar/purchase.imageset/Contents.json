@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "icons8-полная-корзина-30.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
