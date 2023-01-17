@@ -24,7 +24,6 @@ class WoWPizzaView: UIView {
         button.setTitleColor(UIColor.lightGray, for: .normal)
         button.setImage(Resource.Images.Header.car, for: .normal)
         button.setTitleColor(UIColor.cyan, for: .highlighted)
-        
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 10
         //button.addTarget(MenuViewController.self, action: #selector(deliveryAction), for: .touchUpInside)
@@ -41,7 +40,7 @@ class WoWPizzaView: UIView {
         
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 10
-        //button.addTarget(self, action: #selector(timeAction), for: .touchUpInside)
+        //button.addTarget(MenuViewController.self, action: #selector(timeAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -57,6 +56,10 @@ class WoWPizzaView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+//    @objc func timeAction() {
+//        let deliveryView = DeliveryViewController()
+//
+//    }
     
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false

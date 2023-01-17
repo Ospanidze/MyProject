@@ -21,14 +21,11 @@ class FoodView: UIView {
     }()
     
     let meals = [
-        "Сеты",
-        "Fast&Tasty",
-        "Холодные роллы",
         "Пицца",
-        "Теплые роллы",
-        "Запеченные роллы",
+        "Закуски",
+        "Десерты",
         "Напитки",
-        "Cоусы"
+        "Другое"
     ]
     
     override init(frame: CGRect) {
@@ -48,7 +45,7 @@ class FoodView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(collectionView)
-        collectionView.register(FoodCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(FoodCollectionViewCell.self, forCellWithReuseIdentifier: "\(FoodCollectionViewCell.self)")
     }
     
     func setDelegates() {
@@ -68,7 +65,7 @@ extension FoodView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? FoodCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(FoodCollectionViewCell.self)", for: indexPath) as? FoodCollectionViewCell else {
             return UICollectionViewCell()
         }
         cell.foodLabel.text = meals[indexPath.item]
@@ -79,6 +76,30 @@ extension FoodView: UICollectionViewDataSource {
 
 extension FoodView: UICollectionViewDelegate {
     
+//    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+//        true
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+//        let cell = collectionView.cellForItem(at: indexPath)
+//        cell?.contentView.backgroundColor = .blue
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+//        let cell = collectionView.cellForItem(at: indexPath)
+//        cell?.contentView.backgroundColor = .clear
+//    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let alertController = UIAlertController(title: "select", message: "section: \(indexPath.section), item: \(indexPath.item)", preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: "ok", style: .default)
+        alertController.addAction(okAction)
+        
+    }
 }
 
 extension FoodView: UICollectionViewDelegateFlowLayout {

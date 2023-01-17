@@ -107,7 +107,7 @@ class MealCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configure(_ pizza: Pizza) {
+    func configure(_ pizza: Menu) {
         nameLabel.text = pizza.name
         descriptionLabel.text = pizza.description
         costLabel.text = String(pizza.cost)
