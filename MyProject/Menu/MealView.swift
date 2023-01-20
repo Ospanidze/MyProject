@@ -19,6 +19,16 @@ class MealView: UIView {
         return collectionView
     }()
     
+    let collectionGroupView: UICollectionView = {
+        let collectionViewLayout = UICollectionViewFlowLayout()
+        collectionViewLayout.scrollDirection = .horizontal
+        collectionViewLayout.minimumLineSpacing = 10
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+//        collectionView.backgroundColor = .blue
+        return collectionView
+    }()
     //let lotOfPizza = Service.makePizza()
     
     let typeOfMeals: [SectionMenu] = [
@@ -43,14 +53,21 @@ class MealView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(collectionMealView)
+        addSubview(collectionGroupView)
         
         collectionMealView.register(HeaderReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "\(HeaderReusableView.self)")
         collectionMealView.register(MealCollectionViewCell.self, forCellWithReuseIdentifier: "\(MealCollectionViewCell.self)")
+        
+        collectionGroupView.register(GroupCollectionViewCell.self, forCellWithReuseIdentifier: "\(GroupCollectionViewCell.self)")
+        
     }
     
     func setDelegates() {
         collectionMealView.delegate = self
         collectionMealView.dataSource = self
+        
+        collectionGroupView.delegate = self
+        collectionGroupView.dataSource = self
     }
    
     
@@ -63,24 +80,37 @@ extension MealView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //lotOfPizza.count
+        collectionView == collectionGroupView ? typeOfMeals.count  :
         typeOfMeals[section].menu.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(MealCollectionViewCell.self)", for: indexPath) as?  MealCollectionViewCell else {
-            return UICollectionViewCell()
+        if collectionView == collectionGroupView {
+            
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(GroupCollectionViewCell.self)", for: indexPath) as?  GroupCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            //cell.setupCell(group: typeOfMeals[indexPath.section])
+            cell.foodNameLabel.text = typeOfMeals[indexPath.section].sectionName
+            return cell
+        } else {
+            
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(MealCollectionViewCell.self)", for: indexPath) as?  MealCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.configure(typeOfMeals[indexPath.section].menu[indexPath.item])
+            return cell
         }
-        
-        //cell.configure(lotOfPizza[indexPath.item])
-        cell.configure(typeOfMeals[indexPath.section].menu[indexPath.item])
-        return cell
+
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        //guard collectionView == collectionMealView else { return UICollectionReusableView()}
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "\(HeaderReusableView.self)", for: indexPath) as? HeaderReusableView else { return UICollectionReusableView() }
             view.titleLabel.text = typeOfMeals[indexPath.section].sectionName
+            //view.setupHeader(section: typeOfMeals[indexPath.section])
             return view
         default: return UICollectionReusableView()
         }
@@ -94,8 +124,14 @@ extension MealView: UICollectionViewDelegate {
 extension MealView: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width,
-               height: collectionView.frame.width / 2.5 )
+        if collectionView == collectionGroupView {
+            return CGSize(width: collectionView.frame.width / 4,
+                          height: collectionView.frame.width / 7.5 )
+        } else {
+           return CGSize(width: collectionView.frame.width,
+                   height: collectionView.frame.width / 2.5 )
+        }
+        
     }
 }
 
@@ -103,7 +139,12 @@ extension MealView: UICollectionViewDelegateFlowLayout {
 extension MealView {
     func setConstaints() {
         NSLayoutConstraint.activate([
-            collectionMealView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            collectionGroupView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            collectionGroupView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            collectionGroupView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            collectionGroupView.heightAnchor.constraint(equalToConstant: 80),
+            
+            collectionMealView.topAnchor.constraint(equalTo: collectionGroupView.bottomAnchor, constant: 10),
             collectionMealView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             collectionMealView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             collectionMealView.bottomAnchor.constraint(equalTo: bottomAnchor)

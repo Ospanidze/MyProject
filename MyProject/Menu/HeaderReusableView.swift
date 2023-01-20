@@ -11,7 +11,6 @@ class HeaderReusableView: UICollectionReusableView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        
         label.font = UIFont(name: "Avenir Next Bold", size: 27)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -28,11 +27,15 @@ class HeaderReusableView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView() {
+    func setupHeader(section: SectionMenu) {
+        titleLabel.text = section.sectionName
+    }
+    
+    private func setupView() {
         addSubview(titleLabel)
     }
     
-    func setConstraints() {
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),

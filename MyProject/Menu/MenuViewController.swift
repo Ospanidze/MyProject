@@ -11,7 +11,6 @@ import UIKit
 class MenuViewController: UIViewController {
 
     let wowPizzaView = WoWPizzaView()
-    let foodView = FoodView()
     let mealView = MealView()
     
     
@@ -49,7 +48,6 @@ class MenuViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(wowPizzaView)
-        view.addSubview(foodView)
         view.addSubview(mealView)
     }
     
@@ -60,12 +58,7 @@ class MenuViewController: UIViewController {
             wowPizzaView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             wowPizzaView.heightAnchor.constraint(equalToConstant: 100),
             
-            foodView.topAnchor.constraint(equalTo: wowPizzaView.bottomAnchor,constant: 0),
-            foodView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            foodView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            foodView.heightAnchor.constraint(equalToConstant: 80),
-            
-            mealView.topAnchor.constraint(equalTo: foodView.bottomAnchor, constant: 0),
+            mealView.topAnchor.constraint(equalTo: wowPizzaView.bottomAnchor),
             mealView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             mealView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             mealView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -74,6 +67,4 @@ class MenuViewController: UIViewController {
 
 }
 
-//extension MenuViewController {
-//
-//}
+

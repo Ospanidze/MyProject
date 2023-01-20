@@ -7,9 +7,9 @@
 
 import UIKit
 
-class FoodCollectionViewCell: UICollectionViewCell {
+class GroupCollectionViewCell: UICollectionViewCell {
     
-    let foodLabel: UILabel = {
+    let foodNameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .black
@@ -20,16 +20,15 @@ class FoodCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-//    override var isSelected: Bool {
-//        didSet {
-//            if isSelected {
-//                layer.borderWidth = 3
-//                layer.borderColor = UIColor.red.cgColor
-//            } else {
-//                layer.borderWidth = 0
-//            }
-//        }
-//    }
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                layer.borderColor = UIColor.red.cgColor
+            } else {
+                layer.borderColor = UIColor.black.cgColor
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,23 +41,27 @@ class FoodCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView() {
+    private func setupView() {
         //backgroundColor = .cyan
         
         layer.borderWidth = 2
         layer.cornerRadius = 10
         //clipsToBounds = true
-        addSubview(foodLabel)
+        addSubview(foodNameLabel)
         
     }
     
-    func setConstraints() {
+    private func setConstraints() {
         NSLayoutConstraint.activate([
-            foodLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            foodLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            foodLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            foodLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            foodNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            foodNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            foodNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            foodNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
         ])
+    }
+    
+    func setupCell(group: SectionMenu) {
+        foodNameLabel.text = group.sectionName
     }
     
 }
