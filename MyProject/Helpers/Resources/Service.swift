@@ -8,7 +8,6 @@
 import UIKit
 
 struct Menu {
-
     let name: String
     let image: UIImage
     let description: String
@@ -40,6 +39,27 @@ struct Service {
             .init(name: "Ролл Лосось", image: ImageNameSnack.salmonSnack, description: DescriptionSnack.salmonSnack, cost: 900),
             .init(name: "Ролл Угорь", image: ImageNameSnack.eelSnack, description: DescriptionSnack.eelSnack, cost: 1000),
             .init(name: "Хот-Шик Ролл", image: ImageNameSnack.chicSnack, description: DescriptionSnack.chicSnack, cost: 2600),
+        ]
+    }
+    
+    static func makeDessert() -> [Menu] {
+        [
+            .init(name: "Клубничный Пончик", image: ImageNameDessert.strawberryDonut, description: DescriptionDessert.strawberryDonut, cost: 700),
+            .init(name: "Пончик Шоколадный", image: ImageNameDessert.chocolateDonut, description: DescriptionDessert.chocolateDonut, cost: 700),
+            .init(name: "Пончик Орех", image: ImageNameDessert.nutDonut, description: DescriptionDessert.nutDonut, cost: 700)
+            
+        ]
+    }
+    
+    static func makeDrink() -> [Menu] {
+        [
+            .init(name: "Лимонад Яблоко-Киви 0,5л", image: ImageNameDrink.kiwiAppleLemonade, description: DescriptionDrink.lemonate, cost: 600),
+            .init(name: "Лимонад Клубника 0,5л", image: ImageNameDrink.strawberryLemonade, description: DescriptionDrink.lemonate, cost: 600),
+            .init(name: "Лимонад Малина 0,5л", image: ImageNameDrink.raspberryLemonade, description: DescriptionDrink.lemonate, cost: 600),
+            .init(name: "Lipton 1л лимон", image: ImageNameDrink.lemonTea, description: DescriptionDrink.tea, cost: 600),
+            .init(name: "Lipton 1л персик", image: ImageNameDrink.peachTea, description: DescriptionDrink.tea, cost: 600),
+            .init(name: "Сок апельсин 1л", image: ImageNameDrink.orangeJuice, description: DescriptionDrink.orangeJuice, cost: 750),
+            .init(name: "Сок яблоко 1л", image: ImageNameDrink.appleJuice, description: DescriptionDrink.appleJuice, cost: 750),
         ]
     }
 

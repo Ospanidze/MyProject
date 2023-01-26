@@ -1,13 +1,13 @@
 //
-//  DeliveryViewController.swift
+//  TransionViewController.swift
 //  MyProject
 //
-//  Created by Айдар Оспанов on 15.01.2023.
+//  Created by Айдар Оспанов on 26.01.2023.
 //
 
 import UIKit
 
-class DeliveryViewController: UIViewController {
+class TransionViewController: UIViewController {
     
     let titleLabel: UILabel = {
         let label = UILabel()

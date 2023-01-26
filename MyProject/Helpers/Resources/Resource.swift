@@ -7,6 +7,11 @@
 
 import UIKit
 
+struct Assistant {
+    let title: String
+    let image: UIImage
+}
+
 enum Resource {
     enum Strings {
         enum TabBar {
@@ -22,8 +27,8 @@ enum Resource {
         }
         
         enum Header {
-            static let car = UIImage(named: "car")
-            static let time = UIImage(named: "time")
+            static let car = UIImage(named: "car")  ?? UIImage()
+            static let time = UIImage(named: "time")  ?? UIImage()
         }
         
         static let plus = UIImage(named: "plus")

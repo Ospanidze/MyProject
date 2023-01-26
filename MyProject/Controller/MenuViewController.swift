@@ -7,12 +7,12 @@
 
 import UIKit
 
-//@available(iOS 15.0, *)
 class MenuViewController: UIViewController {
 
     let wowPizzaView = WoWPizzaView()
     let mealView = MealView()
     
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,26 +23,20 @@ class MenuViewController: UIViewController {
     }
     
     func action() {
-        wowPizzaView.deliveryButton.addTarget(self,
-                                              action: #selector(deliveryAction),
-                                              for: .touchUpInside)
-//        wowPizzaView.timeButtom.addTarget(self,
-//                                          action: #selector(timeAction),
-//                                          for: .touchUpInside)
+        let buttons = [wowPizzaView.deliveryButton, wowPizzaView.timeButtom]
+        buttons.forEach {
+            $0.addTarget(self, action: #selector(transion), for: .touchUpInside)
+        }
     }
     
-    @objc func deliveryAction() {
-        let deliveryView = DeliveryViewController()
-        //deliveryView.modalPresentationStyle = .popover
-//        if let sheet = deliveryView.sheetPresentationController {
-//            sheet.detents = [.medium(), .]
-//        }
-        present(deliveryView, animated: true)
+    @objc func transion() {
+        let transionViewController = TransionViewController()
+        present(transionViewController, animated: true)
     }
     
-//    @objc func timeAction() {
-//        
-//    }
+    @objc func newPage() {
+        
+    }
     
     private func setupView() {
         view.backgroundColor = .white

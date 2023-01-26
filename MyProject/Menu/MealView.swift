@@ -13,7 +13,6 @@ class MealView: UIView {
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.headerReferenceSize = .init(width: 100, height: 50)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-//        collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -26,17 +25,16 @@ class MealView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-//        collectionView.backgroundColor = .blue
         return collectionView
     }()
-    //let lotOfPizza = Service.makePizza()
     
     let typeOfMeals: [SectionMenu] = [
         SectionMenu(sectionName: "Пицца", menu: Service.makePizza()),
-        SectionMenu(sectionName: "Сеты", menu: Service.makeSnack())
+        SectionMenu(sectionName: "Сеты", menu: Service.makeSnack()),
+        SectionMenu(sectionName: "Десерты", menu: Service.makeDessert()),
+        SectionMenu(sectionName: "Напитки", menu: Service.makeDrink()),
     ]
    
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -74,24 +72,25 @@ class MealView: UIView {
 }
 
 extension MealView: UICollectionViewDataSource {
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        typeOfMeals.count
+        guard collectionView == collectionMealView else { return 1 }
+        return typeOfMeals.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //lotOfPizza.count
+    
         collectionView == collectionGroupView ? typeOfMeals.count  :
         typeOfMeals[section].menu.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         if collectionView == collectionGroupView {
-            
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(GroupCollectionViewCell.self)", for: indexPath) as?  GroupCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            //cell.setupCell(group: typeOfMeals[indexPath.section])
-            cell.foodNameLabel.text = typeOfMeals[indexPath.section].sectionName
+            cell.setupCell(group: typeOfMeals[indexPath.item])
             return cell
         } else {
             
@@ -105,13 +104,13 @@ extension MealView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        //guard collectionView == collectionMealView else { return UICollectionReusableView()}
+        
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "\(HeaderReusableView.self)", for: indexPath) as? HeaderReusableView else { return UICollectionReusableView() }
             view.titleLabel.text = typeOfMeals[indexPath.section].sectionName
-            //view.setupHeader(section: typeOfMeals[indexPath.section])
             return view
+            
         default: return UICollectionReusableView()
         }
     }
@@ -119,6 +118,17 @@ extension MealView: UICollectionViewDataSource {
 
 extension MealView: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard collectionView == collectionGroupView else { return }
+        let selectedGroupIndex = 1
+//        print("selected \(indexPath.section) - \(indexPath.item)")
+        let sectionIndexPath = IndexPath(item: selectedGroupIndex, section: indexPath.item)
+        collectionMealView.scrollToItem(at: sectionIndexPath, at: .centeredVertically, animated: true)
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+//        <#code#>
+//    }
 }
 
 extension MealView: UICollectionViewDelegateFlowLayout {
@@ -126,7 +136,7 @@ extension MealView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == collectionGroupView {
             return CGSize(width: collectionView.frame.width / 4,
-                          height: collectionView.frame.width / 7.5 )
+                          height: collectionView.frame.width / 7.7 )
         } else {
            return CGSize(width: collectionView.frame.width,
                    height: collectionView.frame.width / 2.5 )
@@ -137,9 +147,10 @@ extension MealView: UICollectionViewDelegateFlowLayout {
 
 
 extension MealView {
+    
     func setConstaints() {
         NSLayoutConstraint.activate([
-            collectionGroupView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            collectionGroupView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             collectionGroupView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             collectionGroupView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             collectionGroupView.heightAnchor.constraint(equalToConstant: 80),

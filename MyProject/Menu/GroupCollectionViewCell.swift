@@ -13,8 +13,6 @@ class GroupCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .black
-        //label.backgroundColor = .yellow
-        label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -42,11 +40,11 @@ class GroupCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupView() {
-        //backgroundColor = .cyan
+        
         
         layer.borderWidth = 2
         layer.cornerRadius = 10
-        //clipsToBounds = true
+        
         addSubview(foodNameLabel)
         
     }
@@ -55,8 +53,6 @@ class GroupCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             foodNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             foodNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            foodNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            foodNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
         ])
     }
     

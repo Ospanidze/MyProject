@@ -34,7 +34,7 @@ final class TabBarController: UITabBarController {
         tabBar.layer.masksToBounds = true
         
         let menuViewController = MenuViewController()
-        let purchaseViewController = BaseViewController()
+        let purchaseViewController = BasketViewController()
         
         //let menuNavigation = NavBarController(rootViewController: menuViewController)
         //let purchaseNavigation = NavBarController(rootViewController: purchaseViewController)

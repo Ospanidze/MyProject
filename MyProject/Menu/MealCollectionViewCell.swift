@@ -41,7 +41,7 @@ class MealCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let plusButton: UIButton = {
+    lazy var plusButton: UIButton = {
         let button = UIButton()
         button.setImage(Resource.Images.plus, for: .normal)
         button.layer.borderWidth = 1
@@ -112,11 +112,11 @@ class MealCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configure(_ pizza: Menu) {
-        nameLabel.text = pizza.name
-        descriptionLabel.text = pizza.description
-        costLabel.text = String(pizza.cost)
-        imageView.image = pizza.image
+    func configure(_ eating: Menu) {
+        nameLabel.text = eating.name
+        descriptionLabel.text = eating.description
+        costLabel.text = String(eating.cost)
+        imageView.image = eating.image
     }
     
 }
